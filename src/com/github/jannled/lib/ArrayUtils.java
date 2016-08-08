@@ -1,6 +1,7 @@
 package com.github.jannled.lib;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Util class for arrays.
@@ -81,6 +82,63 @@ public class ArrayUtils
 		for(int i=0; i<len; i++)
 		{
 			output[i] = input.get(i);
+		}
+		return output;
+	}
+	
+	/**
+	 * Convert an ArrayList to a simple Array
+	 * @param input A String ArrayList
+	 * @return A simple String Array
+	 */
+	public static String[] toStringArray(Vector<String> input)
+	{
+		int len = input.size();
+		String[] output = new String[len];
+		for(int i=0; i<len; i++)
+		{
+			output[i] = input.get(i);
+		}
+		return output;
+	}
+	
+	/**
+	 * Turns a 2Dimensional array in a 1Dimensional array.
+	 * @param data A 2-Dimensional float array.
+	 * @return A 1-Dimensional float array.
+	 */
+	public static float[] to1DArray(float[][] data)
+	{
+		int length = (data.length + 1) * data[0].length;
+		float[] output = new float[length];
+		
+		for(int x=0; x<data.length; x++)
+		{
+			for(int y=0; y<data[0].length; y++)
+			{
+				output[x*data[0].length + y] = data[x][y];
+			}
+		}
+		return output;
+	}
+	
+	/**
+	 * Turns a 2Dimensional array in a 1Dimensional array.
+	 * @param data A 2-Dimensional double array.
+	 * @return A 1-Dimensional double array.
+	 */
+	public static double[] to1DArray(double[][] data)
+	{
+		int length = (data.length + 1) * data[0].length;
+		Print.m("Converting Mesh to 1D-Array. Length: " + data.length + "|" + data[0].length);
+		double[] output = new double[length];
+		
+		for(int x=0; x<data.length; x++)
+		{
+			for(int y=0; y<data[0].length; y++)
+			{
+				output[x*data[0].length + y] = data[x][y];
+			}
 		}
 		return output;
 	}
