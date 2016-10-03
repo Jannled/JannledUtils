@@ -1,14 +1,23 @@
 package com.github.jannled.lib.datastorage;
 
-import java.util.Vector;
-
-public class StorageKey
+/**
+ * A single key, manages its own child keys
+ * @author Jannled
+ * @version 0.0.2
+ */
+public class StorageKey extends Data
 {
 	private String name;
 	private String value;
 	private StorageKey parentKey;
-	private Vector<StorageKey> keys = new Vector<StorageKey>();
+	private Data parentStorage;
 	
+	/**
+	 * Creates a new Key
+	 * @param name The name of the key
+	 * @param value The value of the key, or null if it is a parent key (has child keys keys)
+	 * @param parentKey The parent key
+	 */
 	public StorageKey(String name, String value, StorageKey parentKey)
 	{
 		this.name = name;
@@ -16,28 +25,69 @@ public class StorageKey
 		this.parentKey = parentKey;
 	}
 	
-	public void addStorageKey(StorageKey storageKey)
+	/**
+	 * Creates a new Key
+	 * @param name The name of the key
+	 * @param value The value of the key, or null if it is a parent key (has child keys keys)
+	 * @param parent The parent storage object, which keeps track of managing all the keys
+	 */
+	public StorageKey(String name, String value, Storage parent)
 	{
-		keys.add(storageKey);
-	}
-
-	public StorageKey[] getStorageKeys()
-	{
-		return (StorageKey[]) keys.toArray();
+		this.name = name;
+		this.value = value;
+		this.parentStorage = parent;
 	}
 	
+	/**
+	 * Gets the name of this
+	 * @return The name of this key
+	 */
 	public String getName()
 	{
 		return name;
 	}
 	
-	public StorageKey getParentKey()
-	{
-		return parentKey;
-	}
-	
+	/**
+	 * Gets the value of this key
+	 * @return The value for this key, or null if it is a parent key (has child keys keys)
+	 */
 	public String getValue()
 	{
 		return value;
+	}
+	
+	/**
+	 * Gets the parent key
+	 * @return It can either return a StorageKey or a Storage. You can check this with instanceof
+	 */
+	public Data getParent()
+	{
+		if(parentKey != null && parentStorage == null)
+			return parentKey;
+		else
+			return parentStorage;
+	}
+	
+	/**
+	 * Checks if the key has a value, or if it is a parent key (has child keys keys)
+	 * @return True if the key has a value
+	 */
+	public boolean isValue()
+	{
+		if(value!=null)
+			return true;
+		else
+			return false;
+	}
+	
+	@Override
+	public String toString()
+	{
+		String output = "";
+		output += name;
+		if(value != null)
+			output += ": " + value;
+		
+		return output;
 	}
 }
