@@ -21,6 +21,13 @@ public class Datastorage
 {
 	Vector<StorageKey> storageKeys = new Vector<StorageKey>();
 	
+	public static void main(String[] args)
+	{
+		Storage storage = parseFile(new File("Organizer.jsf"));
+		
+		Print.m("" + storage.getValue("Videospiel.Name"));
+	}
+	
 	/**
 	 * Reads in the given file and creates a storage object, which holds every
 	 * @param file The .jsf file to read in
@@ -129,5 +136,15 @@ public class Datastorage
 			}
 		}
 		return count;
+	}
+	
+	public void writeFile(File file, Storage storage)
+	{
+		
+	}
+	
+	public String[] generateLine(String[] text, StorageKey key)
+	{
+		return null;
 	}
 }

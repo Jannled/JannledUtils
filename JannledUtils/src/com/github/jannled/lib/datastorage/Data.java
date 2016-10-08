@@ -19,6 +19,28 @@ public abstract class Data
 	{
 		keys.add(storageKey);
 	}
+
+	/**
+	 * Sets the child keys of this key
+	 * @param storageKeys A Vector containing all storageKeys
+	 */
+	public void setStorageKeys(Vector<StorageKey> storageKeys)
+	{
+		this.keys = storageKeys;
+	}
+	
+
+	/**
+	 * Sets the child keys of this key
+	 * @param storageKeys A Array containing all storageKeys
+	 */
+	public void setStorageKeys(StorageKey[] storageKeys)
+	{
+		for(StorageKey s : storageKeys)
+		{
+			keys.add(s);
+		}
+	}
 	
 	/**
 	 * Gets all child keys for this key, the returned keys can also have child keys
