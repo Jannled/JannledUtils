@@ -113,8 +113,11 @@ public class FileUtils
 		{
 			try
 			{
-				path.getParentFile().mkdirs();
-				path.createNewFile();
+				if(!path.getAbsoluteFile().getParentFile().exists())
+				{
+					path.getAbsoluteFile().getParentFile().mkdirs();
+				}
+				path.getAbsoluteFile().createNewFile();
 				writeSuccessfull = 1;
 			} catch (IOException e)
 			{

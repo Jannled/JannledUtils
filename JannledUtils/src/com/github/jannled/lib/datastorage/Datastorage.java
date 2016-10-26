@@ -8,10 +8,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Vector;
 
+import com.github.jannled.lib.FileUtils;
 import com.github.jannled.lib.Print;
 
 /**
- * This reads and writes <b>J</b>annled <b>S</b>torage <b>F</b>iles
+ * This class reads <b>J</b>annled <b>S</b>torage <b>F</b>iles into Storage and Storage Keys or writes them to disk
  * @author Jannled
  * @version 0.0.2
  * @see com.github.jannled.lib.datastorage.Storage
@@ -23,13 +24,17 @@ public class Datastorage
 	
 	public static void main(String[] args)
 	{
-		Storage storage = parseFile(new File("Organizer.jsf"));
+		Storage storage = parseFile(new File("Organizer.vagina"));
 		
 		Print.m("" + storage.getValue("Videospiel.Name"));
+		
+		File outFile = new File("Test.jsf"); 
+		writeFile(outFile, storage);
+		Print.m("Done writing file " + outFile.getAbsolutePath());
 	}
 	
 	/**
-	 * Reads in the given file and creates a storage object, which holds every
+	 * Reads in the given file and creates a storage object, which holds every StorageKey
 	 * @param file The .jsf file to read in
 	 * @return A storage object containing all keys
 	 */
@@ -41,10 +46,7 @@ public class Datastorage
 		int tabs = 0;
 		int lineNumber = 0;
 		
-		if(!file.getName().endsWith(".jsf"))
-		{
-			Print.e("File " + file.getName() + "might not be supported, it doesn't ends with .jsf");
-		}
+		checkEnding(file , true);
 		
 		try
 		{
@@ -138,13 +140,57 @@ public class Datastorage
 		return count;
 	}
 	
-	public void writeFile(File file, Storage storage)
+	public static void writeFile(File file, Storage storage)
 	{
+		Vector<String> text = new Vector<String>();
 		
+		checkEnding(file, true);
+		
+		for(StorageKey key : storage.getKeys())
+		{
+			text = generateLine(text, key, 0);
+		}
+		String[] output = text.toArray(new String[text.size()]);
+		FileUtils.writeTextFile(file, output);
 	}
 	
-	public String[] generateLine(String[] text, StorageKey key)
+	private static Vector<String> generateLine(Vector<String> text, StorageKey key, int tabs)
 	{
-		return null;
+		String line = "";
+		for(int i=0; i<tabs; i++)
+		{
+			line += "\t";
+		}
+		
+		line += key.getName();
+		if(key.getValue()!=null)
+			line += ": " + key.getValue();
+		
+		text.add(line);
+		
+		for(StorageKey child : key.getKeys())
+		{
+			generateLine(text, child, tabs+1);
+		}
+		
+		return text;
+	}
+	
+	/**
+	 * Check if the file ends with .jsf
+	 * @param file The file to check
+	 * @param verbose If the method should print a message to the error stream
+	 * @return <b>True</b> if the file ends with .jsf, <b>false</b> if not
+	 */
+	private static boolean checkEnding(File file, boolean verbose)
+	{
+		if(!file.getName().endsWith(".jsf"))
+		{
+			if(verbose)
+				Print.e("File " + file.getName() + " might not be supported, it doesn't ends with .jsf");
+			
+			return false;
+		}
+		return true;
 	}
 }
