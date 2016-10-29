@@ -37,6 +37,27 @@ public class Storage extends Data
 	}
 	
 	/**
+	 * Gets all child keys for the given path
+	 * @param path The path, seperated by dots <b>.</b>
+	 * @return The storage keys, represented by that path or null, if it doesn't exist. 
+	 */
+	public StorageKey[] getKeys(String path)
+	{
+		StorageKey parentKey = getKey(path);
+		if(parentKey != null && parentKey.getKeys() != null)
+		{
+			StorageKey[] storageKeys = new StorageKey[parentKey.getKeys().size()];
+			
+			for(int i=0; i<parentKey.getKeys().size(); i++)
+			{
+				storageKeys[i] = parentKey.getKeys().get(i);
+			}
+			return storageKeys;
+		}
+		return null;
+	}
+	
+	/**
 	 * Gets the key for the given value 
 	 * @param path The path, seperated by dots <b>.</b>
 	 * @return The storage value, represented by that path

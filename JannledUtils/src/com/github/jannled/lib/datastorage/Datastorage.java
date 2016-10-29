@@ -22,17 +22,6 @@ public class Datastorage
 {
 	Vector<StorageKey> storageKeys = new Vector<StorageKey>();
 	
-	public static void main(String[] args)
-	{
-		Storage storage = parseFile(new File("Organizer.vagina"));
-		
-		Print.m("" + storage.getValue("Videospiel.Name"));
-		
-		File outFile = new File("Test.jsf"); 
-		writeFile(outFile, storage);
-		Print.m("Done writing file " + outFile.getAbsolutePath());
-	}
-	
 	/**
 	 * Reads in the given file and creates a storage object, which holds every StorageKey
 	 * @param file The .jsf file to read in

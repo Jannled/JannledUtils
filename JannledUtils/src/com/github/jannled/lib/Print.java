@@ -36,7 +36,7 @@ public class Print
 		comleteLog.add(out);
 		infoLog.add(out);
 		
-		if(outLevel>1)
+		if(outLevel<2)
 			System.out.println(out);
 	}
 	
@@ -53,7 +53,7 @@ public class Print
 		String out = "[" + date + "] [" + time + "] [ERROR] " + message;
 		comleteLog.add(out);
 		errorLog.add(out);
-		if(outLevel>2)
+		if(outLevel<3)
 			System.err.println(out);
 	}
 	
@@ -69,7 +69,7 @@ public class Print
 		
 		String out = "[" + date + "] [" + time + "] [DEBUG] " + message;
 		debugLog.add(out);
-		if(outLevel>0)
+		if(outLevel<1)
 		System.out.println(out);
 	}
 	

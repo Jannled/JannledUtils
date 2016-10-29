@@ -30,6 +30,18 @@ public class StorageKey extends Data
 	/**
 	 * Creates a new Key
 	 * @param name The name of the key
+	 * @param parentKey The parent key
+	 */
+	public StorageKey(String name, StorageKey parentKey)
+	{
+		this.name = name;
+		this.value = null;
+		this.parentKey = parentKey;
+	}
+	
+	/**
+	 * Creates a new Key
+	 * @param name The name of the key
 	 * @param value The value of the key, or null if it is a parent key (has child keys keys)
 	 * @param parent The parent storage object, which keeps track of managing all the keys
 	 */
