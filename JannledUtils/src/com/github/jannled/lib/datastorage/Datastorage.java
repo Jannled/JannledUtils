@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Vector;
 
 import com.github.jannled.lib.FileUtils;
@@ -40,7 +41,7 @@ public class Datastorage
 		try
 		{
 			FileInputStream fileStream = new FileInputStream(file);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream, StandardCharsets.UTF_8));
 			String line;
 			
 			while((line = reader.readLine()) != null) //Read until end of file
@@ -98,7 +99,7 @@ public class Datastorage
 					if(currentKey instanceof StorageKey)
 						newKey = new StorageKey(line.trim(), null, (StorageKey) currentKey);
 					else
-						newKey = new StorageKey(line.trim(), null, (Storage) currentKey);
+						newKey = new StorageKey(line.trim(), (Storage) currentKey);
 				}
 			}
 			reader.close();

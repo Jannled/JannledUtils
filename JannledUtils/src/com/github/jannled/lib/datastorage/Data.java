@@ -57,6 +57,6 @@ public abstract class Data
 	 */
 	public StorageKey[] getKeysArray()
 	{
-		return (StorageKey[]) keys.toArray();
+		return keys.toArray(new StorageKey[keys.size()]);
 	}
 }

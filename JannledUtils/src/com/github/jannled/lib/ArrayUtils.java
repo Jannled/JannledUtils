@@ -212,4 +212,23 @@ public class ArrayUtils
 		}
 		return output;
 	}
+	
+	/**
+	 * Increments the arrays size.
+	 * @param array The array to largen
+	 * @param amount The numer of indexes to add to the array, can be negative to remove indexes from the array.
+	 * @return The new array incremented by the amount
+	 */
+	public static Object[] incrementArray(Object[] array, int amount)
+	{
+		Object[] buffer = new Object[array.length+amount];
+		for(int i=0; i<array.length; i++)
+		{
+			if(i<array.length)
+			{
+				buffer[i] = array[i];
+			}
+		}
+		return buffer;
+	}
 }

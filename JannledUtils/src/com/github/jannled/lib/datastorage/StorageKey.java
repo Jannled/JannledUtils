@@ -12,10 +12,23 @@ public class StorageKey extends Data
 	private String name;
 	private String value;
 	private StorageKey parentKey;
-	private Data parentStorage;
+	private Storage parentStorage;
 	
 	/**
-	 * Creates a new Key
+	 * Creates a new Super-Key
+	 * @param name The name of the key
+	 * @param value The value of the key, or null if it is a parent key (has child keys keys)
+	 * @param parent The parent storage object, which keeps track of managing all the keys
+	 */
+	public StorageKey(String name, Storage parent)
+	{
+		this.name = name;
+		this.value = null;
+		this.parentStorage = parent;
+	}
+	
+	/**
+	 * Creates a new Key, which has no childs but a value
 	 * @param name The name of the key
 	 * @param value The value of the key, or null if it is a parent key (has child keys keys)
 	 * @param parentKey The parent key
@@ -28,7 +41,7 @@ public class StorageKey extends Data
 	}
 	
 	/**
-	 * Creates a new Key
+	 * Creates a new Key, which has no value but child keys
 	 * @param name The name of the key
 	 * @param parentKey The parent key
 	 */
@@ -37,19 +50,6 @@ public class StorageKey extends Data
 		this.name = name;
 		this.value = null;
 		this.parentKey = parentKey;
-	}
-	
-	/**
-	 * Creates a new Key
-	 * @param name The name of the key
-	 * @param value The value of the key, or null if it is a parent key (has child keys keys)
-	 * @param parent The parent storage object, which keeps track of managing all the keys
-	 */
-	public StorageKey(String name, String value, Storage parent)
-	{
-		this.name = name;
-		this.value = value;
-		this.parentStorage = parent;
 	}
 	
 	/**

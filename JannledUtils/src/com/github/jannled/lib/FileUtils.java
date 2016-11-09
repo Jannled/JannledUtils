@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Vector;
 
 /**
@@ -19,7 +20,7 @@ import java.util.Vector;
  */
 public class FileUtils
 {
-	static Charset charset = Charset.forName("UTF-8");
+	static Charset charset = StandardCharsets.UTF_8;
 	
 	/**
 	 * Reads the specified text-file in a String array.
