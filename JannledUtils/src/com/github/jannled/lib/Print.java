@@ -129,7 +129,7 @@ public class Print
 	public static int NORMAL = 1;
 	
 	/**
-	 * [NORMAL]
+	 * [ERROR]
 	 */
 	public static int ERROR = 2;
 	
