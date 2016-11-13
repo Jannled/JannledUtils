@@ -7,7 +7,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -146,6 +148,38 @@ public class FileUtils
 			e.printStackTrace();
 		}
 		return writeSuccessfull;
+	}
+	
+	/**
+	 * Strean the input stream to the output stream
+	 * @param in The Source for the Stream
+	 * @param out The target for the stream
+	 */
+	public static void stream(InputStream in, OutputStream out)
+	{
+		stream(in, out, 1024);
+	}
+	
+	/**
+	 * Strean the input stream to the output stream
+	 * @param in The Source for the Stream
+	 * @param out The target for the stream
+	 * @param bufferSize The size for the buffer, that holds thw written bytes before the are written to the new output stream
+	 */
+	public static void stream(InputStream in, OutputStream out, int bufferSize)
+	{
+		byte[] buffer = new byte[bufferSize];
+		int offset;
+		try
+		{
+			while((offset = in.read(buffer)) != -1)
+			{
+				out.write(buffer, 0, offset);
+			}
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**

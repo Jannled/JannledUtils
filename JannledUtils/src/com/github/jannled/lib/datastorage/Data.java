@@ -43,6 +43,22 @@ public abstract class Data
 	}
 	
 	/**
+	 * Removes the child key from this key
+	 * @param key The pointer to the key object you want to remove, must be the same stored in this key as a child key
+	 * @return True if the child key could get removed, false if not
+	 */
+	public boolean removeKey(StorageKey key)
+	{
+		if(keys.contains(key))
+		{
+			keys.remove(key);
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	/**
 	 * Gets all child keys for this key, the returned keys can also have child keys
 	 * @return All child keys that this class manages
 	 */

@@ -110,8 +110,8 @@ public class Print
 	}
 	
 	/**
-	 * 
-	 * @param verbose
+	 * Decide what channels shall be printed to the console.
+	 * @param verbose Use the static fields of this class to set the output channels. <br> For e.g. <code>setOutputLevel(<b>Print.ALL</b>)</code>
 	 */
 	public static void setOutputLevel(int verbose)
 	{

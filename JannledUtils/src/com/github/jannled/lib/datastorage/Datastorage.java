@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Vector;
@@ -30,20 +31,59 @@ public class Datastorage
 	 */
 	public static Storage parseFile(File file)
 	{
+		Storage storage = null;
+		try
+		{
+			checkEnding(file , true);
+			storage = fileReader(new FileInputStream(file));
+		} catch (FileNotFoundException e)
+		{
+			Print.e("File " + file.getAbsolutePath() + " not found!");
+			e.printStackTrace();
+		} catch (IOException e)
+		{
+			Print.e("IOException while reading file " + file.getAbsolutePath() + "!");
+			e.printStackTrace();
+		}
+		return storage;
+	}
+	
+	/**
+	 * Reads in the given file and creates a storage object, which holds every StorageKey
+	 * @param file The InputStream to read in, usually created by Bla.class.getResourceAsStream("/path/Yourfile.jsf")
+	 * @return A storage object containing all keys
+	 */
+	public static Storage parseFile(InputStream file)
+	{
+		Storage storage = null;
+		try
+		{
+			storage = fileReader(file);
+		}
+		catch(IOException e)
+		{
+			Print.e("IOException while reading file as InputStream!");
+			e.printStackTrace();
+		}
+		return storage;
+	}
+	
+	/**
+	 * Reads in the given file and creates a storage object, which holds every StorageKey. This method should not be called directly, use <code>parseFile()</code> instead!!!
+	 * @param file The .jsf file to read in
+	 * @return A storage object containing all keys
+	 * @throws IOException IOException when file reading fails.
+	 */
+	public static Storage fileReader(InputStream file) throws IOException
+	{
 		Storage storage = new Storage();
 		Data currentKey = storage;
 		Data newKey = storage;
 		int tabs = 0;
 		int lineNumber = 0;
 		
-		checkEnding(file , true);
-		
-		try
-		{
-			FileInputStream fileStream = new FileInputStream(file);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream, StandardCharsets.UTF_8));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(file, StandardCharsets.UTF_8));
 			String line;
-			
 			while((line = reader.readLine()) != null) //Read until end of file
 			{
 				int errorStat = 0;
@@ -103,19 +143,8 @@ public class Datastorage
 				}
 			}
 			reader.close();
+			return storage;
 		}
-		catch(FileNotFoundException e)
-		{
-			Print.e("File " + file.getAbsolutePath() + " not found!");
-			e.printStackTrace();
-		} 
-		catch(IOException e)
-		{
-			Print.e("IOException while reading file " + file.getAbsolutePath() + "!");
-			e.printStackTrace();
-		}
-		return storage;	
-	}
 	
 	private static int getNumberOfTabs(String line)
 	{
