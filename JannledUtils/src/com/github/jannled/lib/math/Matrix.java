@@ -64,9 +64,9 @@ public class Matrix
 	}
 	
 	/**
-	 * Multiply the matrix with the given one
-	 * @param matrix The matrix to multiply with
-	 * @return The result matrix, or null if the size of the matrices is not equals
+	 * Multiply the matrix with the given one.
+	 * @param matrix The matrix to multiply with.
+	 * @return The result matrix, or null if the size of the matrices is not equals.
 	 */
 	public Matrix multiply(Matrix matrix)
 	{
@@ -89,6 +89,50 @@ public class Matrix
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * Add the matrix to the given one.
+	 * @param matrix The matrix to add to
+	 * @return The result matrix, or null if the size of the matrices is not equals
+	 */
+	public Matrix add(Matrix matrix)
+	{
+		if(!(matrix.getDimension()[0] == width && matrix.getDimension()[1] == height))
+		{
+			return null;
+		}
+		
+		float[] result = new float[values.length];
+		
+		for(int i=0; i<values.length; i++)
+		{
+			result[i] = getValues()[i] + matrix.getValues()[i]; 
+		}
+		
+		return new Matrix(result, width, height);
+	}
+	
+	/**
+	 * Subtract the matrix from the given one.
+	 * @param matrix The subtrahend matrix
+	 * @return The result matrix, or null if the size of the matrices is not equals
+	 */
+	public Matrix subtract(Matrix matrix)
+	{
+		if(!(matrix.getDimension()[0] == width && matrix.getDimension()[1] == height))
+		{
+			return null;
+		}
+		
+		float[] result = new float[values.length];
+		
+		for(int i=0; i<values.length; i++)
+		{
+			result[i] = getValues()[i] - matrix.getValues()[i];
+		}
+		
+		return new Matrix(result, width, height);
 	}
 	
 	public float get(int xpos, int ypos)
