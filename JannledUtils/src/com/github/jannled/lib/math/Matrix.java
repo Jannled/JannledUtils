@@ -37,13 +37,17 @@ public class Matrix
 	
 	/**
 	 * Not recommend because the vector is stored in a one dimensional array, so the two dimensional vector needs to be transformed. 
-	 * @param values The values for the matrix
+	 * @param values The values for the matrix, row major ordered.
 	 */
 	public Matrix(float[][] values)
 	{
-		width = values.length;
-		height = values[0].length;
+		width = values[0].length;
+		height = values.length;
 		
+		for(int i=0; i<height; i++)
+		{
+			System.arraycopy(values, 0, this.values, 0, width);
+		}
 	}
 	
 	/**
