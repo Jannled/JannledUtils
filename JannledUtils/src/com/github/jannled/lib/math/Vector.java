@@ -113,4 +113,15 @@ public class Vector
 	{
 		vals[index] = value;
 	}
+	
+	@Override
+	public String toString()
+	{
+		String output = "[";
+		for(int i=0; i<vals.length; i++)
+		{
+			output += (i<vals.length-1) ? vals[i] + ",\t" : vals[i] + "";
+		}
+		return output += "]";
+	}
 }

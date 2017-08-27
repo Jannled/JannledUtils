@@ -174,4 +174,22 @@ public class Matrix
 	{
 		values[xpos * ypos] = value;
 	}
+	
+	@Override
+	public String toString()
+	{
+		String output = "";
+		
+		for(int y=0; y<height; y++)
+		{
+			output += "[";
+			for(int x=0; x<width; x++)
+			{
+				output += (x<width-1) ? values[x*y] + ",\t" : values[x*y] + "";
+			}
+			output += "] \n";
+		}
+		
+		return output;
+	}
 }
