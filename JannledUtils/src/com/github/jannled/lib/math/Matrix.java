@@ -73,29 +73,30 @@ public class Matrix
 	/**
 	 * Multiply the matrix with the given one.
 	 * @param matrix The matrix to multiply with.
-	 * @return The result matrix, or null if the size of the matrices is not equals.
+	 * @return The result matrix, or null if the matrix cannot be multiplied.
 	 */
 	public Matrix multiply(Matrix matrix)
 	{
-		int width = getDimension()[0];
-		int height = getDimension()[1];
-		
-		if(!(matrix.getDimension()[0] == width && matrix.getDimension()[1] == height))
-		{
+		int width = matrix.getWidth();
+		int height = this.getHeight();
+		Matrix out = new Matrix(width, height);
+
+		if(this.getWidth() != matrix.getHeight())
 			return null;
-		}
-		Matrix result = new Matrix(width, height);
 		
-		for(int y=0; y < height; y++) {
-			for(int x=0; x < 4; x++) {
-				float sum = 0.0f;
-				for(int e=0; e < width; e++) {
-					sum += this.values[e + y * height] * matrix.values[x + e * width];
-				}
-				result.values[x + y * 4] = sum;
+		for(int c=0; c<width*height; c++)
+		{
+			float sum = 0;
+			for(int e=0; e<getWidth(); e++)
+			{
+				int apos = (c/(width))*getWidth() + e;
+				int bpos = (c%height) + e*matrix.getWidth();
+				sum = sum + this.getValues()[apos] * matrix.getValues()[bpos];
 			}
+			out.getValues()[c] = sum;
 		}
-		return result;
+		
+		return out;
 	}
 	
 	/**
@@ -144,7 +145,7 @@ public class Matrix
 	
 	public float get(int xpos, int ypos)
 	{
-		return values[xpos * ypos];
+		return values[xpos*width+ypos];
 	}
 	
 	public float[] getValues()
@@ -179,7 +180,7 @@ public class Matrix
 	 */
 	public void set(int xpos, int ypos, float value)
 	{
-		values[xpos * ypos] = value;
+		values[xpos*width+ypos] = value;
 	}
 	
 	@Override
