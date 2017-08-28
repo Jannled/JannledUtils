@@ -44,9 +44,12 @@ public class Matrix
 		width = values[0].length;
 		height = values.length;
 		
+		this.values = new float[width*height];
+		
 		for(int i=0; i<height; i++)
 		{
-			System.arraycopy(values, 0, this.values, 0, width);
+			if(values[i] != null)
+				System.arraycopy(values[i], 0, this.values, i*width, width);
 		}
 	}
 	
@@ -189,7 +192,7 @@ public class Matrix
 			output += "[";
 			for(int x=0; x<width; x++)
 			{
-				output += (x<width-1) ? values[x*y] + ",\t" : values[x*y] + "";
+				output += (x<width-1) ? values[y*width+x] + ",\t" : values[y*width+x] + "";
 			}
 			output += "] \n";
 		}
