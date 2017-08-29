@@ -1,5 +1,7 @@
 package com.github.jannled.lib.math;
 
+import com.github.jannled.lib.Print;
+
 /**
  * A float matrix.
  * @author Jannled
@@ -82,7 +84,10 @@ public class Matrix
 		Matrix out = new Matrix(width, height);
 
 		if(this.getWidth() != matrix.getHeight())
+		{
+			Print.e("Failed to multiply matrix of size " + getWidth() + "x"+ getHeight() + " with " + matrix.getWidth() + "x" + matrix.getHeight() + ". The width of matrix A must be equals the height of B!");
 			return null;
+		}
 		
 		for(int c=0; c<width*height; c++)
 		{
@@ -108,6 +113,7 @@ public class Matrix
 	{
 		if(!(matrix.getDimension()[0] == width && matrix.getDimension()[1] == height))
 		{
+			Print.e("Failed to add matrix of size " + getWidth() + "x"+ getHeight() + " to " + matrix.getWidth() + "x" + matrix.getHeight() + ". The width of matrix A must be equals the height of B!");
 			return null;
 		}
 		
@@ -130,6 +136,7 @@ public class Matrix
 	{
 		if(!(matrix.getDimension()[0] == width && matrix.getDimension()[1] == height))
 		{
+			Print.e("Failed to subtract matrix of size " + getWidth() + "x"+ getHeight() + " by " + matrix.getWidth() + "x" + matrix.getHeight() + ". The width of matrix A must be equals the height of B!");
 			return null;
 		}
 		
