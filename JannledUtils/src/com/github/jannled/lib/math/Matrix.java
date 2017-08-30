@@ -95,7 +95,7 @@ public class Matrix
 			for(int e=0; e<getWidth(); e++)
 			{
 				int apos = (c/(width))*getWidth() + e;
-				int bpos = (c%height) + e*matrix.getWidth();
+				int bpos = (c%width) + e*matrix.getWidth();
 				sum = sum + this.getValues()[apos] * matrix.getValues()[bpos];
 			}
 			out.getValues()[c] = sum;
