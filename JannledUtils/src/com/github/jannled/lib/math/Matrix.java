@@ -152,7 +152,7 @@ public class Matrix
 	
 	public float get(int xpos, int ypos)
 	{
-		return values[xpos*width+ypos];
+		return values[ypos*width+xpos];
 	}
 	
 	public float[] getValues()
@@ -187,7 +187,7 @@ public class Matrix
 	 */
 	public void set(int xpos, int ypos, float value)
 	{
-		values[xpos*width+ypos] = value;
+		values[ypos*width+xpos] = value;
 	}
 	
 	@Override
