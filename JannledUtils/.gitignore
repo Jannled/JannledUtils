@@ -1,1 +1,6 @@
-/bin/
+
+# Jannled Storage Files
+*.jsf
+
+# Java compiled files
+*.class

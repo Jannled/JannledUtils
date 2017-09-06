@@ -46,9 +46,9 @@ public class Zipfile implements Archive
 
 	/**
 	 * Copy a file into the archive
-	 * @param source 
-	 * @param pathInArchive 
-	 * @return If the file was moved sucessfully
+	 * @param source The path of the file to copy to the archive. 
+	 * @param pathInArchive The path the file should have inside the archive.
+	 * @return If the file was moved successfully.
 	 */
 	@Override
 	public boolean addFile(Path source, Path pathInArchive, int storeOptions, boolean replace)
