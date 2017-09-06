@@ -3,12 +3,12 @@ package com.github.jannled.lib.math;
 import com.github.jannled.lib.Print;
 
 /**
- * A float matrix.
+ * A double matrix.
  * @author Jannled
  */
 public class Matrix
 {
-	private float[] values;
+	private double[] values;
 	private int width;
 	private int height;
 	
@@ -19,7 +19,7 @@ public class Matrix
 	 */
 	public Matrix(int width, int height)
 	{
-		values = new float[width * height];
+		values = new double[width * height];
 		this.width = width;
 		this.height = height;
 	}
@@ -30,7 +30,7 @@ public class Matrix
 	 * @param width The width of the matrix.
 	 * @param height The height of the matrix.
 	 */
-	public Matrix(float[] values, int width, int height)
+	public Matrix(double[] values, int width, int height)
 	{
 		this.values = values;
 		this.width = width;
@@ -41,12 +41,12 @@ public class Matrix
 	 * Not recommend because the vector is stored in a one dimensional array, so the two dimensional vector needs to be transformed. 
 	 * @param values The values for the matrix, row major ordered.
 	 */
-	public Matrix(float[][] values)
+	public Matrix(double[][] values)
 	{
 		width = values[0].length;
 		height = values.length;
 		
-		this.values = new float[width*height];
+		this.values = new double[width*height];
 		
 		for(int i=0; i<height; i++)
 		{
@@ -91,7 +91,7 @@ public class Matrix
 		
 		for(int c=0; c<width*height; c++)
 		{
-			float sum = 0;
+			double sum = 0;
 			for(int e=0; e<getWidth(); e++)
 			{
 				int apos = (c/(width))*getWidth() + e;
@@ -117,7 +117,7 @@ public class Matrix
 			return null;
 		}
 		
-		float[] result = new float[values.length];
+		double[] result = new double[values.length];
 		
 		for(int i=0; i<values.length; i++)
 		{
@@ -140,7 +140,7 @@ public class Matrix
 			return null;
 		}
 		
-		float[] result = new float[values.length];
+		double[] result = new double[values.length];
 		
 		for(int i=0; i<values.length; i++)
 		{
@@ -150,12 +150,24 @@ public class Matrix
 		return new Matrix(result, width, height);
 	}
 	
-	public float get(int xpos, int ypos)
+	/**
+	 * Get a single value from the matrix.
+	 * @param xpos The X-position of the value.
+	 * @param ypos The Y-position of the value.
+	 * @return The value stored in that position.
+	 */
+	public double get(int xpos, int ypos)
 	{
 		return values[ypos*width+xpos];
 	}
 	
-	public float[] getValues()
+	/**
+	 * Get all values in a two dimensional array. 
+	 * most efficient method for getting values, because the values are stored in a single-dimensional array. You might need
+	 * additional informations (width and height of the matrix) to read it properly.
+	 * @return All values in a double array. 
+	 */
+	public double[] getValues()
 	{
 		return values;
 	}
@@ -169,11 +181,19 @@ public class Matrix
 		return new int[] {width, height};
 	}
 	
+	/**
+	 * Getter for the width of the matrix.
+	 * @return Number of columns.
+	 */
 	public int getWidth()
 	{
 		return width;
 	}
 	
+	/**
+	 * Getter for the height of the matrix.
+	 * @return Number of rows.
+	 */
 	public int getHeight()
 	{
 		return height;
@@ -185,7 +205,7 @@ public class Matrix
 	 * @param ypos The y position of the value to alter.
 	 * @param value The value to alter.
 	 */
-	public void set(int xpos, int ypos, float value)
+	public void set(int xpos, int ypos, double value)
 	{
 		values[ypos*width+xpos] = value;
 	}
@@ -200,7 +220,7 @@ public class Matrix
 			output += "[";
 			for(int x=0; x<width; x++)
 			{
-				output += (x<width-1) ? values[y*width+x] + ",\t" : values[y*width+x] + "";
+				output += (x<width-1) ? Maths.round(values[y*width+x], 3) + ",\t" : Maths.round(values[y*width+x], 3) + "";
 			}
 			output += "] \n";
 		}
