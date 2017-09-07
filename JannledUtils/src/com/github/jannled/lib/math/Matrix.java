@@ -151,6 +151,21 @@ public class Matrix
 	}
 	
 	/**
+	 * Transpose the current matrix.
+	 * @return The transposed matrix.
+	 */
+	public Matrix transpose()
+	{
+		Matrix out = new Matrix(getHeight(), getWidth());
+		for(int i=0; i<getWidth()*getHeight(); i++)
+		{
+			int row = (i%height) * width + i/height;
+			out.getValues()[i] = getValues()[row];
+		}
+		return out;
+	}
+	
+	/**
 	 * Get a single value from the matrix.
 	 * @param xpos The X-position of the value.
 	 * @param ypos The Y-position of the value.
