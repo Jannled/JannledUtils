@@ -1,13 +1,16 @@
 package com.github.jannled.lib.math;
 
+import java.io.Serializable;
+
 import com.github.jannled.lib.Print;
 
 /**
  * A double matrix.
  * @author Jannled
  */
-public class Matrix
+public class Matrix implements Serializable
 {
+	private static final long serialVersionUID = 6881648817538891334L;
 	private double[] values;
 	private int width;
 	private int height;
@@ -101,6 +104,21 @@ public class Matrix
 			out.getValues()[c] = sum;
 		}
 		
+		return out;
+	}
+	
+	/**
+	 * Multiply each element of the matrix with the given value.
+	 * @param value The factor.
+	 * @return The result.
+	 */
+	public Matrix multiply(double value)
+	{
+		Matrix out = new Matrix(getWidth(), getHeight());
+		for(int i=0; i<getWidth()*getHeight(); i++)
+		{
+			out.set(1, getValues()[i] * value);
+		}
 		return out;
 	}
 	
@@ -223,6 +241,11 @@ public class Matrix
 	public void set(int xpos, int ypos, double value)
 	{
 		values[ypos*width+xpos] = value;
+	}
+	
+	public void set(int pos, double value)
+	{
+		values[pos] = value;
 	}
 	
 	@Override

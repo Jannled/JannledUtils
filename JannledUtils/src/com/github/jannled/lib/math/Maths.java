@@ -17,6 +17,20 @@ public class Maths
 	}
 	
 	/**
+	 * Map a number to another range of numbers.
+	 * @param value The value to map.
+	 * @param min1 The minimum of the input value. 
+	 * @param max1 The maximum of the input value.
+	 * @param min2 The minimum of the output value.
+	 * @param max2 The maximum of the output value.
+	 * @return The number mapped to the specified range.
+	 */
+	public static double map(double value, double min1, double max1, double min2, double max2)
+	{
+		return (value-min1) * (max2-min2) / (max1-min1) + min2;
+	}
+	
+	/**
 	 * Round the result to the number of decimal places.
 	 * @param value The value to round.
 	 * @param decimals The amount of decimal places.
