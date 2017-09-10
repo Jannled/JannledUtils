@@ -1,6 +1,7 @@
 package com.github.jannled.lib.math;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import com.github.jannled.lib.Print;
 
@@ -38,6 +39,20 @@ public class Matrix implements Serializable
 		this.values = values;
 		this.width = width;
 		this.height = height;
+	}
+	
+	/**
+	 * Create a matrix filled with a specific number.
+	 * @param value The number to fill the matrix with.
+	 * @param width The width of the matrix.
+	 * @param height The height of the matrix.
+	 */
+	public Matrix(double value, int width, int height)
+	{
+		this.width = width;
+		this.height = height;
+		this.values = new double[width*height];
+		Arrays.fill(values, value);
 	}
 	
 	/**
