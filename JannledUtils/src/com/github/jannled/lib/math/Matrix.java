@@ -132,7 +132,7 @@ public class Matrix implements Serializable
 		Matrix out = new Matrix(getWidth(), getHeight());
 		for(int i=0; i<getWidth()*getHeight(); i++)
 		{
-			out.set(1, getValues()[i] * value);
+			out.set(i, getValues()[i] * value);
 		}
 		return out;
 	}
