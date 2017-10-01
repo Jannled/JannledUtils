@@ -268,14 +268,21 @@ public class Matrix implements Serializable
 	{
 		String output = "";
 		
-		for(int y=0; y<height; y++)
+		if(width < 100 && height < 100)
 		{
-			output += "[";
-			for(int x=0; x<width; x++)
+			for(int y=0; y<height; y++)
 			{
-				output += (x<width-1) ? Maths.round(values[y*width+x], 3) + ",\t" : Maths.round(values[y*width+x], 3) + "";
+				output += "[";
+				for(int x=0; x<width; x++)
+				{
+					output += (x<width-1) ? Maths.round(values[y*width+x], 3) + ",\t" : Maths.round(values[y*width+x], 3) + "";
+				}
+				output += "] \n";
 			}
-			output += "] \n";
+		}
+		else
+		{
+			output = "Matrix[" + width + "x" + height + "] (The matrix is to big to be printed!)";
 		}
 		
 		return output;
