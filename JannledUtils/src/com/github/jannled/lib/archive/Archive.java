@@ -21,4 +21,11 @@ public interface Archive
 	 * @return The input stream for the specified path if existant, or null if not.
 	 */
 	public abstract InputStream getFile(String name);
+	
+	/**
+	 * Get all files in the specified directory.
+	 * @param path The place of the files to list.
+	 * @return All files in the specified directory.
+	 */
+	public abstract String[] getFiles(String path);
 }

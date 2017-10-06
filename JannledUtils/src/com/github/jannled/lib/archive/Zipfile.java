@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Zipfile implements Archive
@@ -69,9 +71,13 @@ public class Zipfile implements Archive
 	{
 		try
 		{
-			return Files.newInputStream(Paths.get("jar:file:/" + name));
+			return Files.newInputStream(zipfs.getPath(name));
 			
 		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch (InvalidPathException e)
 		{
 			e.printStackTrace();
 		}
@@ -81,5 +87,27 @@ public class Zipfile implements Archive
 	public FileSystem getFilesystem()
 	{
 		return zipfs;
+	}
+
+	@Override
+	public String[] getFiles(String path)
+	{
+		if(path.equals(""))
+			path = "/";
+		
+		ArrayList<String> names = new ArrayList<String>();
+		try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(getFilesystem().getPath(path)))
+		{
+			for(Path p : directoryStream)
+			{
+				names.add(p.getFileName().toString());
+			}
+			
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		String[] s = new String[names.size()];
+		return names.toArray(s);
 	}
 }
