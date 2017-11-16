@@ -1,12 +1,12 @@
 package com.github.jannled.lib.math;
 
 /**
- * A float vector.
+ * A double vector.
  * @author Jannled
  */
 public class Vector
 {
-	private float[] vals;
+	private double[] vals;
 	
 	/**
 	 * Construct a new vector with zero as value.
@@ -14,16 +14,30 @@ public class Vector
 	 */
 	public Vector(int dimension)
 	{
-		vals = new float[dimension];
+		vals = new double[dimension];
 	}
 	
 	/**
 	 * Construct a new vector from the array.
 	 * @param values The values to use for the new vector.
 	 */
-	public Vector(float[] values)
+	public Vector(double[] values)
 	{
 		this.vals = values;
+	}
+	
+	/**
+	 * Create a Vector with three coordinates.
+	 * @param x The x coordinate.
+	 * @param y The y coordinate.
+	 * @param z The z coordinate.
+	 */
+	public Vector(double x, double y, double z)
+	{
+		vals = new double[3];
+		vals[0] = x;
+		vals[1] = y;
+		vals[2] = z;
 	}
 	
 	/**
@@ -75,7 +89,7 @@ public class Vector
 	 * @param scalar The scalar.
 	 * @return The result of the multiplication.
 	 */
-	public Vector multiply(float scalar)
+	public Vector multiply(double scalar)
 	{
 		Vector vout = new Vector(getValues().length);
 		for(int i=0; i< getValues().length; i++)
@@ -90,16 +104,16 @@ public class Vector
 	 * @param index The index of the value to get (from zero to n).
 	 * @return The specified value of the vector.
 	 */
-	public float getValue(int index)
+	public double getValue(int index)
 	{
 		return vals[index];
 	}
 	
 	/**
 	 * Get all values from the vector.
-	 * @return The values are stored in a float array.
+	 * @return The values are stored in a double array.
 	 */
-	public float[] getValues()
+	public double[] getValues()
 	{
 		return vals;
 	}
@@ -109,7 +123,7 @@ public class Vector
 	 * @param index The index of the value to set.
 	 * @param value The value to set.
 	 */
-	public void setValue(int index, float value)
+	public void setValue(int index, double value)
 	{
 		vals[index] = value;
 	}
