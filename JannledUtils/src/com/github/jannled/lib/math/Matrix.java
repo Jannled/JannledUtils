@@ -199,6 +199,90 @@ public class Matrix implements Serializable
 	}
 	
 	/**
+	 * Create a 4x4 perspective projection matrix.
+	 * @param near The near clipping plane.
+	 * @param far The far clipping plane.
+	 * @param fov The field of view in degrees.
+	 * @param aspect The aspect ratio of the screen.
+	 * @return The 4x4 perspective projection matrix.
+	 */
+	public static Matrix perspective(double near, double far, double fov, double aspect)
+	{
+		double top = near * Math.tan(0.00872664625997164788461845384244 * fov);
+		double right = top * aspect;
+		return perspective(near, far, -right, right, top, -top);
+	}
+	
+	/**
+	 * Create a 4x4 perspective projection matrix.
+	 * @param near The near clipping plane.
+	 * @param far The far clipping plane.
+	 * @param left
+	 * @param right
+	 * @param top
+	 * @param bottom
+	 * @return The 4x4 perspective projection matrix.
+	 */
+	public static Matrix perspective(double near, double far, double left, double right, double top, double bottom)
+	{
+		Matrix m = new Matrix(4, 4);
+		m.getValues()[0]  = (2*near)/(right-left);
+		m.getValues()[2]  = (right + left) / (right - left);
+		m.getValues()[5]  = (2*near) / (top - bottom);
+		m.getValues()[6]  = (top + bottom) / (top - bottom);
+		m.getValues()[10] = -((far + near) / (far - near));
+		m.getValues()[11] = -((2*far*near) / (far - near));
+		m.getValues()[14] = -1;
+		return m;
+	}
+	
+	/**
+	 * Create a 4x4 translation matrix.
+	 * @param x Translation along the X-axis.
+	 * @param y Translation along the Y-axis.
+	 * @param z Translation along the Z-axis.
+	 * @return A 4x4 translation matrix.
+	 */
+	public static Matrix translate(double x, double y, double z)
+	{
+		Matrix m = Matrix.identity(4, 4);
+		m.getValues()[3]  = x;
+		m.getValues()[7]  = y;
+		m.getValues()[11] = z;
+		return m;
+	}
+	
+	/**
+	 * Create a 4x4 rotation matrix.
+	 * @param x Rotation along the X-axis.
+	 * @param y Rotation along the Y-axis.
+	 * @param z Rotation along the Z-axis.
+	 * @return A 4x4 rotation matrix. NOT YET IMLEMENTED, ONLY RETURNS AN IDENTITY MATRIX.
+	 */
+	public static Matrix rotate(double x, double y, double z)
+	{
+		//TODO Find a rotation method!
+		return Matrix.identity(4, 4);
+	}
+	
+	/**
+	 * Create a 4x4 translation matrix
+	 * @param x Scaling factor along the X-axis.
+	 * @param y Scaling factor along the Y-axis.
+	 * @param z Scaling factor along the Z-axis.
+	 * @return A 4x4 scale matrix.
+	 */
+	public static Matrix scale(double x, double y, double z)
+	{
+		Matrix m = new Matrix(4, 4);
+		m.getValues()[0]  = x;
+		m.getValues()[4]  = y;
+		m.getValues()[9]  = z;
+		m.getValues()[14] = 1;
+		return m;
+	}
+	
+	/**
 	 * Get a single value from the matrix.
 	 * @param xpos The X-position of the value.
 	 * @param ypos The Y-position of the value.
