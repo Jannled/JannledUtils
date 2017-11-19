@@ -208,9 +208,9 @@ public class Matrix implements Serializable
 	 */
 	public static Matrix perspective(double near, double far, double fov, double aspect)
 	{
-		double top = near * Math.tan(0.00872664625997164788461845384244 * fov);
-		double right = top * aspect;
-		return perspective(near, far, -right, right, top, -top);
+		double ymax = near * Math.tan(fov * Math.PI / 360);
+		double xmax = ymax * aspect;
+		return perspective(near, far, -xmax, xmax, -ymax, ymax);
 	}
 	
 	/**
@@ -221,18 +221,22 @@ public class Matrix implements Serializable
 	 * @param right
 	 * @param top
 	 * @param bottom
-	 * @return The 4x4 perspective projection matrix.
+	 * @return The 4x4 frustum matrix.
 	 */
 	public static Matrix perspective(double near, double far, double left, double right, double top, double bottom)
 	{
 		Matrix m = new Matrix(4, 4);
-		m.getValues()[0]  = (2*near)/(right-left);
-		m.getValues()[2]  = (right + left) / (right - left);
-		m.getValues()[5]  = (2*near) / (top - bottom);
-		m.getValues()[6]  = (top + bottom) / (top - bottom);
-		m.getValues()[10] = -((far + near) / (far - near));
-		m.getValues()[11] = -((2*far*near) / (far - near));
-		m.getValues()[14] = -1;
+		double v1 = 2*near;
+		double v2 = right-left;
+		double v3 = top-bottom;
+		double v4 = far-near;
+		m.getValues()[0]  = v1 / v2;
+		m.getValues()[5]  = v1 / v3;
+		m.getValues()[8]  = (right + left) / v2;
+		m.getValues()[9]  = (top + bottom) / v3;
+		m.getValues()[10] = (-far - near) / v4;
+		m.getValues()[11] = -1;
+		m.getValues()[14] = ((-v1) * far) / v4;
 		return m;
 	}
 	
@@ -253,6 +257,16 @@ public class Matrix implements Serializable
 	}
 	
 	/**
+	 * Create a 4x4 translation matrix.
+	 * @param loc The translation vector along the x, y and z axis.
+	 * @return A 4x4 translation matrix.
+	 */
+	public static Matrix translate(Vector loc)
+	{
+		return translate(loc.getValue(0), loc.getValue(1), loc.getValue(2));
+	}
+	
+	/**
 	 * Create a 4x4 rotation matrix.
 	 * @param x Rotation along the X-axis.
 	 * @param y Rotation along the Y-axis.
@@ -263,6 +277,16 @@ public class Matrix implements Serializable
 	{
 		//TODO Find a rotation method!
 		return Matrix.identity(4, 4);
+	}
+	
+	/**
+	 * Create a 4x4 rotation matrix.
+	 * @param rot Rotation vector along the x, y and z axis.
+	 * @return A 4x4 rotation matrix. NOT YET IMLEMENTED, ONLY RETURNS AN IDENTITY MATRIX.
+	 */
+	public static Matrix rotate(Vector rot)
+	{
+		return rotate(rot.getValue(0), rot.getValue(1), rot.getValue(2));
 	}
 	
 	/**
@@ -280,6 +304,16 @@ public class Matrix implements Serializable
 		m.getValues()[9]  = z;
 		m.getValues()[14] = 1;
 		return m;
+	}
+	
+	/**
+	 * Create a 4x4 translation matrix
+	 * @param scale The scale vector along the x, y and z axis.
+	 * @return A 4x4 scale matrix.
+	 */
+	public static Matrix scale(Vector scale)
+	{
+		return scale(scale.getValue(0), scale.getValue(1), scale.getValue(2));
 	}
 	
 	/**
