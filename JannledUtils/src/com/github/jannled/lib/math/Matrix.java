@@ -300,9 +300,9 @@ public class Matrix implements Serializable
 	{
 		Matrix m = new Matrix(4, 4);
 		m.getValues()[0]  = x;
-		m.getValues()[4]  = y;
-		m.getValues()[9]  = z;
-		m.getValues()[14] = 1;
+		m.getValues()[5]  = y;
+		m.getValues()[10]  = z;
+		m.getValues()[15] = 1;
 		return m;
 	}
 	

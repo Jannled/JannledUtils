@@ -28,9 +28,9 @@ public class Vector
 	
 	/**
 	 * Create a Vector with three coordinates.
-	 * @param x The x coordinate.
-	 * @param y The y coordinate.
-	 * @param z The z coordinate.
+	 * @param x The x coordinate (left/right).
+	 * @param y The y coordinate (up/down).
+	 * @param z The z coordinate (outwards/inwards).
 	 */
 	public Vector(double x, double y, double z)
 	{
