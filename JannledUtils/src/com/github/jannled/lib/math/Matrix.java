@@ -235,6 +235,7 @@ public class Matrix implements Serializable
 		m.getValues()[5]  = n2 / tb;
 		m.getValues()[6]  = (top + bottom) / tb;
 		m.getValues()[10] = -(far + near) / fn;
+		m.getValues()[11] = -1;
 		m.getValues()[12] = -(n2 * far) / fn;
 		
 		return m;
