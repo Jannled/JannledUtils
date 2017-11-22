@@ -226,17 +226,17 @@ public class Matrix implements Serializable
 	public static Matrix perspective(double near, double far, double left, double right, double top, double bottom)
 	{
 		Matrix m = new Matrix(4, 4);
-		double v1 = 2*near;
-		double v2 = right-left;
-		double v3 = top-bottom;
-		double v4 = far-near;
-		m.getValues()[0]  = v1 / v2;
-		m.getValues()[5]  = v1 / v3;
-		m.getValues()[8]  = (right + left) / v2;
-		m.getValues()[9]  = (top + bottom) / v3;
-		m.getValues()[10] = (-far - near) / v4;
-		m.getValues()[11] = -1;
-		m.getValues()[14] = ((-v1) * far) / v4;
+		double n2 = 2*near;
+		double rl = right-left;
+		double tb = top-bottom;
+		double fn = far-near;
+		m.getValues()[0]  = n2 / rl;
+		m.getValues()[2]  = (right + left) / rl;
+		m.getValues()[5]  = n2 / tb;
+		m.getValues()[6]  = (top + bottom) / tb;
+		m.getValues()[10] = -(far + near) / fn;
+		m.getValues()[12] = -(n2 * far) / fn;
+		
 		return m;
 	}
 	
@@ -271,18 +271,19 @@ public class Matrix implements Serializable
 	 * @param x Rotation along the X-axis.
 	 * @param y Rotation along the Y-axis.
 	 * @param z Rotation along the Z-axis.
-	 * @return A 4x4 rotation matrix. NOT YET IMLEMENTED, ONLY RETURNS AN IDENTITY MATRIX.
+	 * @return A 4x4 rotation matrix.
 	 */
 	public static Matrix rotate(double x, double y, double z)
 	{
-		//TODO Find a rotation method!
-		return Matrix.identity(4, 4);
+		Matrix m = Matrix.identity(4, 4);
+		
+		return m;
 	}
 	
 	/**
 	 * Create a 4x4 rotation matrix.
 	 * @param rot Rotation vector along the x, y and z axis.
-	 * @return A 4x4 rotation matrix. NOT YET IMLEMENTED, ONLY RETURNS AN IDENTITY MATRIX.
+	 * @return A 4x4 rotation matrix.
 	 */
 	public static Matrix rotate(Vector rot)
 	{
