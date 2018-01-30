@@ -1,5 +1,7 @@
 package com.github.jannled.lib.math;
 
+import com.github.jannled.lib.Print;
+
 /**
  * A double vector.
  * @author Jannled
@@ -69,8 +71,9 @@ public class Vector
 	 */
 	public Vector subtract(Vector v)
 	{
-		if(getValues().length == v.getValues().length)
+		if(getValues().length != v.getValues().length)
 		{
+			Print.e("Error while subracting!");
 			return null;
 		}
 		else
@@ -97,6 +100,50 @@ public class Vector
 			vout.setValue(i, getValue(i) * scalar);
 		}
 		return vout;
+	}
+	
+	/**
+	 * Calculate the cross product between two 3-dimensional vectors.
+	 * @param v The second vector to multiply.
+	 * @return The cross product of the two vectors.
+	 */
+	public Vector crossProduct(Vector v)
+	{
+		if(getValues().length != 3 || v.getValues().length != 3)
+		{
+			System.err.println("Dimension error while cross multiplying matrices.");
+			return null;
+		}
+		
+		Vector out = new Vector(
+				getValue(1) * v.getValue(2) - getValue(2) * v.getValue(1),
+				getValue(2) * v.getValue(0) - getValue(0) * v.getValue(2),
+				getValue(0) * v.getValue(1) - getValue(1) * v.getValue(0));
+		
+		return out;
+	}
+	
+	/**
+	 * Calculate the dot product between the two matrices.
+	 * @param v The second argument to multiply with.
+	 * @return THe dot product or -1 if failed.
+	 */
+	public double dotProduct(Vector v)
+	{
+		double out = -1;
+		
+		if(getValues().length != v.getValues().length)
+		{
+			Print.e("The two vectors must have the same dimension!" + getValues().length + ", ");
+			return out;
+		}
+		
+		for(int i=0; i<v.getValues().length; i++)
+		{
+			out += getValue(i) * v.getValue(i);
+		}
+		
+		return out;
 	}
 	
 	/**
