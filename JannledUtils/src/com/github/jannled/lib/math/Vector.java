@@ -49,8 +49,9 @@ public class Vector
 	 */
 	public Vector add(Vector v)
 	{
-		if(getValues().length == v.getValues().length)
+		if(getValues().length != v.getValues().length)
 		{
+			Print.e("Failed to add Vector " + v.toString() + " to " + toString());
 			return null;
 		}
 		else
