@@ -166,6 +166,33 @@ public class Vector
 	}
 	
 	/**
+	 * Get the x value.
+	 * @return 
+	 */
+	public double X()
+	{
+		return vals[0];
+	}
+
+	/**
+	 * Get the y value.
+	 * @return 
+	 */
+	public double Y()
+	{
+		return vals[1];
+	}
+
+	/**
+	 * Get the z value.
+	 * @return 
+	 */
+	public double Z()
+	{
+		return vals[2];
+	}
+	
+	/**
 	 * Sets a value of the vector.
 	 * @param index The index of the value to set.
 	 * @param value The value to set.
