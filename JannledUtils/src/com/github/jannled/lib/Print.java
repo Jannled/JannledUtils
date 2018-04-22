@@ -3,6 +3,7 @@ package com.github.jannled.lib;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.LinkedList;
 import java.util.Vector;
 
 /**
@@ -17,6 +18,8 @@ public class Print
 	private static Vector<String> errorLog = new Vector<String>();
 	private static Vector<String> debugLog = new Vector<String>();
 	
+	private static LinkedList<LogListener> listeners = new LinkedList<LogListener>();
+
 	/**
 	 * 0 is everything, 1 is normal and error log, 2 is only errors and 3 disables all console output
 	 */
@@ -33,6 +36,7 @@ public class Print
 		Time time = new Time(timeStamp.getTime());
 		
 		String out = "[" + date + "] [" + time + "] [INFO] " + message;
+		notifyListeners(out, Print.NORMAL);
 		comleteLog.add(out);
 		infoLog.add(out);
 		
@@ -51,6 +55,7 @@ public class Print
 		Time time = new Time(timeStamp.getTime());
 
 		String out = "[" + date + "] [" + time + "] [ERROR] " + message;
+		notifyListeners(out, Print.ERROR);
 		comleteLog.add(out);
 		errorLog.add(out);
 		if(outLevel<3)
@@ -68,9 +73,23 @@ public class Print
 		Time time = new Time(timeStamp.getTime());
 		
 		String out = "[" + date + "] [" + time + "] [DEBUG] " + message;
+		notifyListeners(out, Print.ALL);
 		debugLog.add(out);
 		if(outLevel<1)
 		System.out.println(out);
+	}
+	
+	public static void registerListener(LogListener ll)
+	{
+		listeners.add(ll);
+	}
+	
+	private static void notifyListeners(String message, int level)
+	{
+		for(LogListener ll : listeners)
+		{
+			ll.notifyLog(message, level);
+		}
 	}
 	
 	/**
@@ -116,6 +135,15 @@ public class Print
 	public static void setOutputLevel(int verbose)
 	{
 		outLevel = verbose;
+	}
+	
+	/**
+	 * Get output level.
+	 * @return The current output level.
+	 */
+	public static int getOutputLevel()
+	{
+		return outLevel;
 	}
 	
 	/**
